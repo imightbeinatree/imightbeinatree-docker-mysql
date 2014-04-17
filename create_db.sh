@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -f /.db_created ]; then
+	echo "Database already created!"
+	exit 0
+fi
+
+
 if [[ $# -eq 0 ]]; then
 	echo "Usage: $0 <db_name>"
 	exit 1
@@ -18,3 +24,4 @@ done
 mysqladmin -uroot shutdown
 
 echo "=> Done!"
+touch /.db_created

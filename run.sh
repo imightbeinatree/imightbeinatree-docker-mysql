@@ -4,7 +4,7 @@ if [ ! -f /.mysql_admin_created ]; then
 fi
 
 if [ ! -f /.master_configured ]; then
-  /configure.sh
+  /master_configure.sh
 fi
 
 if [ ! -f /.db_created ]; then
@@ -14,6 +14,5 @@ fi
 if [ ! -f /.slave_permission_granted ]; then
   /grant_slave_permission.sh $slaving_username $slaving_password
 fi
-
 
 exec supervisord -n

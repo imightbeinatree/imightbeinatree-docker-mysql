@@ -2,7 +2,13 @@
 #
 # currently requires that you pass environment variables
 #
+# required:
 # dbname - name of the database to be created
+#
+# optional:
+# setup_master - when "y" it will setup the db as a master database server
+#
+# required with setup_master=y
 # slaving_username - username for a slave mysql server to connect to this master
 # slaving_password - password for a slave mysql server to connect to this master
 

@@ -16,7 +16,7 @@ echo "=> Granting Slave Permission to $1 with password $2"
 RET=1
 while [[ RET -ne 0 ]]; do
 	sleep 5
-	mysql -uroot -e "GRANT REPLICATION SLAVE ON *.* TO '$1'@'%' IDENTIFIED BY '$2';"
+	mysql -uroot -e "GRANT REPLICATION SLAVE ON *.* TO '$1'@'%' IDENTIFIED BY '$2'; FLUSH PRIVILEGES;"
 	RET=$?
 done
 

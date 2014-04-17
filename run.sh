@@ -10,13 +10,16 @@ if [ "$setup" == "master" ]; then
 fi
 
 if [ "$setup" == "slave" ]; then
+  echo "$MASTERDB_PORT_3306_TCP_ADDR - linked master db addr"
   if [ ! -f /.slave_configured ]; then
     /slave_configure.sh
   fi
 fi
 
-if [ ! -f /.db_created ]; then
-  /create_db.sh $dbname
+if ["$dbname" != "" && "$setup" != "slave"]
+  if [ ! -f /.db_created ]; then
+    /create_db.sh $dbname
+  fi
 fi
 
 if [ "$setup" == "master" ]; then
@@ -27,7 +30,7 @@ fi
 
 if [ "$setup" == "slave" ]; then
   if [ ! -f /.slaving_started ]; then
-    /start_slaving.sh $slaving_username $slaving_password $master_db_ip $bin_file $bin_position
+    /start_slaving.sh $slaving_username $slaving_password $bin_file $bin_position
   fi
 fi
 

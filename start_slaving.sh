@@ -16,7 +16,7 @@ echo "=> Starting Slaving on $master_db_ip with $slaving_username:$slaving_passw
 RET=1
 while [[ RET -ne 0 ]]; do
 	sleep 5
-	mysql -uroot -e "CHANGE MASTER TO MASTER_HOST='$master_db_ip', MASTER_USER='$slaving_username', MASTER_PASSWORD='$slaving_password', MASTER_LOG_FILE='$bin_file', MASTER_LOG_POS=$bin_position;"
+	mysql -uroot -e "CHANGE MASTER TO MASTER_HOST='$MASTERDB_PORT_3306_TCP_ADDR', MASTER_USER='$slaving_username', MASTER_PASSWORD='$slaving_password', MASTER_LOG_FILE='$bin_file', MASTER_LOG_POS=$bin_position;"
 	RET=$?
 done
 

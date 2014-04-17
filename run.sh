@@ -3,13 +3,12 @@ if [ ! -f /.mysql_admin_created ]; then
   /create_mysql_admin_user.sh
 fi
 
-if [ ! -f /.db_created ]; then
-  /create_db.sh $dbname
+if [ ! -f /.master_configured ]; then
+  /configure.sh
 fi
 
-if [ ! -f /.master_configured ]; then
-  sed -i -e "s/master_example_db/$dbname/g" /etc/mysql/conf.d/my.cnf
-  touch /.master_configured
+if [ ! -f /.db_created ]; then
+  /create_db.sh $dbname
 fi
 
 if [ ! -f /.slave_permission_granted ]; then

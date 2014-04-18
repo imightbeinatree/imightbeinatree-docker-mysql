@@ -25,17 +25,10 @@
 # required with setup=slave
 # slaving_username - username for a slave mysql server to connect to this master
 # slaving_password - password for a slave mysql server to connect to this master
+# master_db_ip - ip address of master db
 # bin_file
 # bin_position
-# 
-# when setting up a slave you are also required to link the master db container with the name masterdb
-# the master db should be on the actually exposed port 3306
-# so that the environment variable MASTERDB_PORT_3306_TCP_ADDR will exist
-#
-# linked container slave example: 
-# our master db is in a docker container named goofy_wright
-# docker run -d -p 3306 --link goofy_wright:masterdb -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=slave" -e "bin_file=mysql-bin.000001" -e "bin_position=423"  imightbeinatree/mysql
-#
+# db_dump_file - full path to db dump file on the box the docker container is running on
 
 FROM ubuntu:saucy
 MAINTAINER Michael Orr <michael@cloudspace.com>

@@ -5,18 +5,22 @@ if [ -f /.slaving_started ]; then
 	exit 0
 fi
 
-if [[ $# -ne 5 ]]; then
-	echo "Usage: $0 <slaving_username> <slaving_password> <master_db_ip> <bin_file> <bin_position>"
+if [[ $# -ne 6 ]]; then
+	echo "Usage: $0 <slaving_username> <slaving_password> <master_db_ip> <bin_file> <bin_position> <db_dump_file>"
 	exit 1
 fi
 
 /usr/bin/mysqld_safe > /dev/null 2>&1 &
 
-echo "=> Starting Slaving on $master_db_ip with $slaving_username:$slaving_password at $bin_file:$bin_position"
+echo "=> Importing SQL file"
+mysql -uroot  < "$2"
+
+
+echo "=> Starting Slaving on $3 with $1:$2 at $4:$5"
 RET=1
 while [[ RET -ne 0 ]]; do
 	sleep 5
-	mysql -uroot -e "CHANGE MASTER TO MASTER_HOST='$MASTERDB_PORT_3306_TCP_ADDR', MASTER_USER='$slaving_username', MASTER_PASSWORD='$slaving_password', MASTER_LOG_FILE='$bin_file', MASTER_LOG_POS=$bin_position;"
+	mysql -uroot -e "CHANGE MASTER TO MASTER_HOST='$3', MASTER_USER='$1', MASTER_PASSWORD='$2', MASTER_LOG_FILE='$4', MASTER_LOG_POS=$5;"
 	RET=$?
 done
 

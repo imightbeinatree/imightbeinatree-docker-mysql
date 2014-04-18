@@ -21,7 +21,7 @@ if [ "$setup" == "master" -a ! -f /.slave_permission_granted ]; then
 fi
 
 if [ "$setup" == "slave" -a ! -f /.slaving_started ]; then
-  /start_slaving.sh $slaving_username $slaving_password $bin_file $bin_position
+  /start_slaving.sh $slaving_username $slaving_password $master_db_ip $bin_file $bin_position $db_dump_file
 fi
 
 exec supervisord -n

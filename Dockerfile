@@ -33,9 +33,13 @@
 FROM ubuntu:saucy
 MAINTAINER Michael Orr <michael@cloudspace.com>
 
-# Install packages
+
+# install python-software-properties (so you can do add-apt-repository)
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q python-software-properties
+# add repository so we can do mysql 5.6
 RUN add-apt-repository ppa:ondrej/mysql-5.6
 RUN apt-get update
+# Install packages
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor mysql-server-5.6 pwgen
 
 # Add image configuration and scripts

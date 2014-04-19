@@ -34,8 +34,9 @@ FROM ubuntu:saucy
 MAINTAINER Michael Orr <michael@cloudspace.com>
 
 # Install packages
+RUN add-apt-repository ppa:ondrej/mysql-5.6
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor mysql-server pwgen
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor mysql-server-5.6 pwgen
 
 # Add image configuration and scripts
 ADD start.sh /start.sh

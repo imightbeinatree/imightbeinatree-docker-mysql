@@ -52,6 +52,7 @@ ADD slave_configure.sh /slave_configure.sh
 ADD grant_slave_permission.sh /grant_slave_permission.sh
 ADD start_slaving.sh /start_slaving.sh
 ADD import_sql.sh /import_sql.sh
+ADD example_db.sql /example_db.sql
 RUN chmod 755 /*.sh
 
 EXPOSE 3306

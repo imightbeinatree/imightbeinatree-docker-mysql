@@ -35,7 +35,9 @@ MAINTAINER Michael Orr <michael@cloudspace.com>
 
 
 # install python-software-properties (so you can do add-apt-repository)
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q python-software-properties
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q software-properties-common
+RUN apt-get update
 # add repository so we can do mysql 5.6
 RUN add-apt-repository ppa:ondrej/mysql-5.6
 RUN apt-get update

@@ -13,7 +13,7 @@ fi
 /usr/bin/mysqld_safe > /dev/null 2>&1 &
 
 echo "=> Importing SQL file"
-mysql -uroot  < "$2"
+mysql -uroot  < "$6"
 
 
 echo "=> Starting Slaving on $3 with $1:$2 at $4:$5"

@@ -7,7 +7,7 @@
 #
 # running currently requires that you pass environment variables
 #
-# required:
+# optional (required however if the "setup" variable is set to "master" or "slave"):
 # dbname - name of the database to be created
 #
 # optional:
@@ -19,7 +19,7 @@
 # slaving_password - password for a slave mysql server to connect to this master
 #
 # master example:
-# docker run -d -p 3306:3306 -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=master"  imightbeinatree/mysql-multi 
+# docker run -d -p 3306:3306 -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=master"  imightbeinatree/mysql
 #
 #
 # required with setup=slave

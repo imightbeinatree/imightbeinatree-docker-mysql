@@ -100,7 +100,7 @@ Creating a Database
 
 When you run this docker container it will run a MySQL instance. If you would like to go ahead and have a database created for you then you should specify the name of the database as an instance variable called "dbname" when you run the container.
 
-  docker run -d -p 3306:3306 -e "dbname=example_db" imightbeinatree/mysql
+	docker run -d -p 3306:3306 -e "dbname=example_db" imightbeinatree/mysql
 
 Setting up a Master MySQL Server
 ----------------------------------
@@ -112,7 +112,7 @@ In order to setup a master database you must set certain environment variables w
 3. slaving_username - username that slave database servers will use to connect to this master
 4. slaving_password - password that slave database servers will use to connect to this master
 
-  docker run -d -p 3306:3306 -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=master"  imightbeinatree/mysql-multi 
+	docker run -d -p 3306:3306 -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=master"  imightbeinatree/mysql-multi 
 
 
 Setting up a Slave MySQL Server
@@ -129,6 +129,6 @@ In order to setup a slave database you must set certain environment variables wh
 7. bin_file - bin file that the binary log was using at the time of the supplied database dump
 8. bin_position - position in the bin file that the binary log was using at the time of the supplied database dump
 
-  docker run -d -p 3306  -e "dbname=example_db" -e "slaving_username=slave_user" -e "slaving_password=password" -e "setup=slave" -e "bin_file=mysql-bin.000003" -e "bin_position=120" -e "master_db_ip=10.0.1.4" -e "db_dump_file=/example_db.sql"  imightbeinatree/mysql
+	docker run -d -p 3306  -e "dbname=example_db" -e "slaving_username=slave_user" -e "slaving_password=password" -e "setup=slave" -e "bin_file=mysql-bin.000003" -e "bin_position=120" -e "master_db_ip=10.0.1.4" -e "db_dump_file=/example_db.sql"  imightbeinatree/mysql
 
 note: currently the database dump file is hardcoded to be copied onto the server, this means that before building the image that you plan to run, your dump should be included in the root of this directory and be named example_db.sql.

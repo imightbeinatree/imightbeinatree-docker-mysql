@@ -33,6 +33,7 @@
 FROM ubuntu:saucy
 MAINTAINER Michael Orr <michael@cloudspace.com>
 
+ADD apt.conf.d /etc/apt/apt.conf.d
 
 # install python-software-properties (so you can do add-apt-repository)
 RUN apt-get update

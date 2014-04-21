@@ -11,9 +11,11 @@ if [[ $# -ne 6 ]]; then
 fi
 
 /usr/bin/mysqld_safe > /dev/null 2>&1 &
+sleep 5
 
-echo "=> Importing SQL file"
+echo "=> Importing SQL file $6"
 mysql -uroot  < "$6"
+
 
 
 echo "=> Starting Slaving on $3 with $1:$2 at $4:$5"
@@ -28,9 +30,3 @@ mysqladmin -uroot shutdown
 
 echo "=> Done!"
 touch /.slaving_started
-
-
-
-
-
-

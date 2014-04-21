@@ -8,7 +8,6 @@ if [ "$setup" == "master" -a ! -f /.master_configured ]; then
 fi
 
 if [ "$setup" == "slave" -a ! -f /.slave_configured ]; then
-  echo "$MASTERDB_PORT_3306_TCP_ADDR - linked master db addr"
   /slave_configure.sh
 fi
 

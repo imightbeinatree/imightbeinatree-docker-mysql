@@ -33,12 +33,10 @@
 FROM ubuntu:saucy
 MAINTAINER Michael Orr <michael@cloudspace.com>
 
-ADD apt.conf.d_90forceyes /etc/apt/apt.conf.d/90forceyes
+ADD config_files/apt.conf.d_90forceyes /etc/apt/apt.conf.d/90forceyes
 
 # install python-software-properties (so you can do add-apt-repository)
-RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q software-properties-common
-RUN apt-get update
 # add repository so we can do mysql 5.6
 RUN add-apt-repository ppa:ondrej/mysql-5.6
 RUN apt-get update
@@ -46,21 +44,24 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor mysql-server-5.6 pwgen
 
 # Add image configuration and scripts
-ADD start.sh /start.sh
-ADD run.sh /run.sh
-ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
-ADD my.cnf /etc/mysql/conf.d/my.cnf
-ADD master_my.cnf /master_my.cnf
-ADD slave_my.cnf /slave_my.cnf
-ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
-ADD create_db.sh /create_db.sh
-ADD master_configure.sh /master_configure.sh
-ADD slave_configure.sh /slave_configure.sh
-ADD grant_slave_permission.sh /grant_slave_permission.sh
-ADD start_slaving.sh /start_slaving.sh
-ADD import_sql.sh /import_sql.sh
-ADD example_db.sql /example_db.sql
+ADD bash_scripts/start.sh /start.sh
+ADD bash_scripts/run.sh /run.sh
+ADD bash_scripts/start_slaving.sh /start_slaving.sh
+ADD bash_scripts/create_mysql_admin_user.sh /create_mysql_admin_user.sh
+ADD bash_scripts/create_db.sh /create_db.sh
+ADD bash_scripts/master_configure.sh /master_configure.sh
+ADD bash_scripts/slave_configure.sh /slave_configure.sh
+ADD bash_scripts/grant_slave_permission.sh /grant_slave_permission.sh
+ADD bash_scripts/import_sql.sh /import_sql.sh
 RUN chmod 755 /*.sh
+ADD config_files/supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
+ADD config_files/my.cnf /etc/mysql/conf.d/my.cnf
+ADD config_files/master_my.cnf /master_my.cnf
+ADD config_files/slave_my.cnf /slave_my.cnf
+ADD example_db.sql /example_db.sql
 
+# expose standard mysql port
 EXPOSE 3306
+
+# default command - runs shell script controller
 CMD ["/run.sh"]

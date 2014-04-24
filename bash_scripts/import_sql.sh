@@ -1,19 +1,15 @@
 #!/bin/bash
 
 if [[ $# -ne 2 ]]; then
-	echo "Usage: $0 <password> </path/to/sql_file.sql>"
+	echo "Usage: $0 <dbname> <db_dump_file>"
 	exit 1
 fi
 
-echo "=> Starting MySQL Server"
-/usr/bin/mysqld_safe > /dev/null 2>&1 &
-sleep 5
-echo "   Started with PID $!"
+/start_mysql.sh
 
 echo "=> Importing SQL file"
-mysql -uroot -p"$1" < "$2"
+mysql -uroot $1 < "$2"
 
-echo "=> Stopping MySQL Server"
-mysqladmin -uroot -p"$1" shutdown
+/stop_mysql.sh
 
 echo "=> Done!"

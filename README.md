@@ -1,6 +1,8 @@
 imightbeinatree-docker-mysql
 ==================
 
+adapted from https://github.com/tutumcloud/tutum-docker-mysql
+
 Base docker image to run your choice of:
  1. a standard MySQL 5.6 database server
  2. a master MySQL database server
@@ -133,8 +135,10 @@ In order to setup a slave database you must set certain environment variables wh
 7. bin_file - bin file that the binary log was using at the time of the supplied database dump
 8. bin_position - position in the bin file that the binary log was using at the time of the supplied database dump
 
+note: you likely want to attach storage to get the database dump into the container, see -v
+
 Example Command:
 
-    docker run -d -p 3306  -e "dbname=example_db" -e "slaving_username=slave_user" -e "slaving_password=password" -e "setup=slave" -e "bin_file=mysql-bin.000003" -e "bin_position=120" -e "master_db_ip=10.0.1.4" -e "db_dump_file=/example_db.sql"  imightbeinatree/mysql
+    docker run -d -p 3306 -v /path/to/local/datdump:/data_dumps -e "dbname=example_db" -e "slaving_username=slave_user" -e "slaving_password=password" -e "setup=slave" -e "bin_file=mysql-bin.000003" -e "bin_position=120" -e "master_db_ip=10.0.1.4" -e "db_dump_file=/datadumps/example_db.sql"  imightbeinatree/mysql
 
 note: currently the database dump file is hardcoded to be copied onto the server, this means that before building the image that you plan to run, your dump should be included in the root of this directory and be named example_db.sql.

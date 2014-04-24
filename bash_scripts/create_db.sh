@@ -11,7 +11,7 @@ if [[ $# -eq 0 ]]; then
 	exit 1
 fi
 
-/usr/bin/mysqld_safe > /dev/null 2>&1 &
+/start_mysql.sh
 
 echo "=> Creating database $1"
 RET=1
@@ -21,7 +21,7 @@ while [[ RET -ne 0 ]]; do
 	RET=$?
 done
 
-mysqladmin -uroot shutdown
+/stop_mysql.sh
 
 echo "=> Done!"
 touch /.db_created

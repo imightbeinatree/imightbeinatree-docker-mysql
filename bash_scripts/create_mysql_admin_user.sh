@@ -5,7 +5,7 @@ if [ -f /.mysql_admin_created ]; then
 	exit 0
 fi
 
-/usr/bin/mysqld_safe > /dev/null 2>&1 &
+/start_mysql.sh
 
 PASS=${MYSQL_PASS:-$(pwgen -s 12 1)}
 _word=$( [ ${MYSQL_PASS} ] && echo "preset" || echo "random" )
@@ -19,7 +19,7 @@ done
 
 mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION"
 
-mysqladmin -uroot shutdown
+/stop_mysql.sh
 
 echo "=> Done!"
 touch /.mysql_admin_created

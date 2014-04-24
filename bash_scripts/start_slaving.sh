@@ -10,13 +10,9 @@ if [[ $# -ne 7 ]]; then
 	exit 1
 fi
 
-/usr/bin/mysqld_safe > /dev/null 2>&1 &
-sleep 5
+/import_sql.sh $1 $7
 
-echo "=> Importing SQL file $7"
-mysql -uroot $1 < "$7"
-
-
+/start_mysql.sh
 
 echo "=> Starting Slaving on $4 with $2:$3 at $5:$6"
 RET=1
@@ -26,7 +22,7 @@ while [[ RET -ne 0 ]]; do
 	RET=$?
 done
 
-mysqladmin -uroot shutdown
+/stop_mysql.sh
 
 echo "=> Done!"
 touch /.slaving_started

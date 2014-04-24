@@ -10,7 +10,7 @@ if [[ $# -ne 2 ]]; then
 	exit 1
 fi
 
-/usr/bin/mysqld_safe > /dev/null 2>&1 &
+/start_mysql.sh
 
 echo "=> Granting Slave Permission to $1 with password $2"
 RET=1
@@ -20,7 +20,7 @@ while [[ RET -ne 0 ]]; do
 	RET=$?
 done
 
-mysqladmin -uroot shutdown
+/stop_mysql.sh
 
 echo "=> Done!"
 touch /.slave_permission_granted

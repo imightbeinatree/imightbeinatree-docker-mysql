@@ -9,13 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q software-properties-com
 RUN add-apt-repository ppa:ondrej/mysql-5.6
 RUN apt-get update
 # Install packages
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor mysql-server-5.6 pwgen openssh-server
-
-RUN mkdir /var/run/sshd
-RUN echo 'root:updog' | chpasswd
-ADD config_files/ssh_config /etc/ssh/ssh_config
-ADD config_files/sshd_config /etc/ssh/sshd_config
-RUN sudo service ssh restart
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor mysql-server-5.6 pwgen
 
 # Add image configuration and scripts
 ADD bash_scripts/create_db.sh /create_db.sh

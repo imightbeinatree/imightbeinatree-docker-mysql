@@ -118,7 +118,7 @@ In order to setup a master database you must set certain environment variables w
 
 Example Command:
 
-    docker run -d -p 3306:3306 -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=master"  imightbeinatree/mysql-multi 
+    docker run -d -p 3306:3306 -e "dbname=example_db" -e "slaving_username=suser" -e "slaving_password=spassword" -e "setup=master"  imightbeinatree/mysql
 
 
 Setting up a Slave MySQL Server
